@@ -24,14 +24,14 @@
      (for ([t ts])
        (t f)))))
 
-(define-syntax-rule (tester f (t ...)) (tester* f (symbol->string 'f) (t ...)))
+(define-syntax-rule (tester f (t ...)) (tester* f (symbol->string 'f) (list t ...)))
 
 (test
- (tester 3-4:evaluate (list apply-test if-test))
- (tester 3-5:evaluate (list apply-test if-test))
- (tester 4-1:evaluate (list apply-test if-test))
- (tester 4-2:evaluate (list apply-test if-test))
- (tester 4-3:evaluate (list apply-test if-test))
- (tester 4-4:evaluate (list apply-test if-test))
- (tester 4-5:evaluate (list apply-test if-test))
- (tester 4-6:evaluate (list apply-test if-test)))
+ (tester 3-4:evaluate (apply-test if-test))
+ (tester 3-5:evaluate (apply-test if-test))
+ (tester 4-1:evaluate (apply-test if-test))
+ (tester 4-2:evaluate (apply-test if-test))
+ (tester 4-3:evaluate (apply-test if-test))
+ (tester 4-4:evaluate (apply-test if-test))
+ (tester 4-5:evaluate (apply-test if-test))
+ (tester 4-6:evaluate (apply-test if-test)))
