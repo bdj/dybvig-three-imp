@@ -69,7 +69,7 @@
       [nuate (stack x)
        (VM a x e (restore-stack stack))]
       [frame (ret x)
-       (VM a x e '() (push ret (push e s)))]
+       (VM a x e (push ret (push e s)))]
       [argument (x)
        (VM a x e (push a s))]
       [apply ()
@@ -79,13 +79,13 @@
        (let ([s (- s n)])
          (VM a (index s 0) (index s 1) (- s 2)))])))
 
-(define compile-lookup 
-  (lambda (var e)
+(define compile-lookup
+  (lambda (var e return)
     (let nxtrib ([e e] [rib 0])
       (let nxtelt ([vars (car e)] [elt 0])
         (cond
           [(null? vars) (nxtrib (cdr e) (+ rib 1))]
-          [(eq? (car vars) var) (cons rib elt)]
+          [(eq? (car vars) var) (return rib elt)]
           [else (nxtelt (cdr vars) (+ elt 1))])))))
 
 (define closure 
@@ -125,5 +125,5 @@
 
 (define evaluate 
   (lambda (x)
-    (VM '() (compile x '() '(halt)) '() '() 0)))
+    (VM '() (compile x '() '(halt)) '() 0)))
 
